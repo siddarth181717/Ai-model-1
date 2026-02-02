@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether | Voice Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="ambient-light">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div class="noise-texture"></div>
+
+    <main class="glass-core">
+        
+        <header>
+            <div class="brand-pill">
+                <i class="fa-solid fa-fingerprint"></i>
+                <span>NEXUS<span class="highlight">.AI</span></span>
+            </div>
+            <div class="status-pill">
+                <span class="pulse-dot"></span> NEURAL ENGINE ACTIVE
+            </div>
+        </header>
+
+        <form id="uploadForm">
+            
+            <label class="holo-zone" id="dropZone" for="audio">
+                
+                <input type="file" id="audio" accept=".mp3,.wav" hidden>
+
+                <div class="zone-content idle" id="idleView">
+                    <div class="upload-icon-wrapper">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <div class="ring-pulse"></div>
+                    </div>
+                    <h2>Analyze Audio Stream</h2>
+                    <p>Drop .MP3 or .WAV to begin forensic breakdown</p>
+                </div>
+
+                <div class="zone-content active hidden" id="fileView">
+                    <div class="track-header">
+                        <div class="track-info">
+                            <i class="fa-brands fa-soundcloud"></i>
+                            <span id="fileName">evidence_audio.wav</span>
+                        </div>
+                        <button type="button" id="removeBtn" title="Remove File">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    
+                    <canvas id="visualizer"></canvas>
+                    <audio id="audioPreview"></audio>
+
+                    <div class="scan-overlay hidden" id="scanOverlay">
+                        <div class="scanner-line"></div>
+                        <div class="terminal-feed" id="terminalFeed"></div>
+                    </div>
+                </div>
+            </label>
+
+            <div class="control-bar">
+                <div class="setting-box">
+                    <label>Region Model</label>
+                    <div class="custom-select">
+                        <select id="language" title="Region Model">
+                            <option value="English">Global (English)</option>
+                            <option value="Hindi">India (Hindi)</option>
+                            <option value="Tamil">India (Tamil)</option>
+                            <option value="Telugu">India (Telugu)</option>
+                            <option value="Malayalam">India (Malayalam)</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <button type="submit" id="scanBtn" disabled>
+                    <span class="btn-content">INITIALIZE SCAN</span>
+                    <span class="btn-glare"></span>
+                </button>
+            </div>
+        </form>
+
+        <div class="result-veil hidden" id="resultModal">
+            <div class="result-card">
+                <div class="result-header">
+                    <h3 id="reportTitle">FORENSIC REPORT</h3>
+                    <button id="closeModal"><i class="fa-solid fa-arrow-rotate-right"></i> NEW SCAN</button>
+                </div>
+
+                <div class="score-container">
+                    <svg class="progress-ring" width="160" height="160">
+                        <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="transparent" r="70" cx="80" cy="80"/>
+                        <circle class="progress-ring__circle" id="progressCircle" stroke="white" stroke-width="8" fill="transparent" r="70" cx="80" cy="80"/>
+                    </svg>
+                    <div class="score-text">
+                        <span id="confidenceVal">0%</span>
+                        <small id="scoreLabel">CONFIDENCE</small>
+                    </div>
+                </div>
+
+                <div class="verdict-box" id="verdictBox">
+                    <h1 id="verdictTitle">AUTHENTIC</h1>
+                    <p id="verdictDesc">No synthetic artifacts detected in spectral analysis.</p>
+                </div>
+
+                <div class="data-row" id="dataRow">
+                    <div class="data-item">
+                        <span>INTEGRITY</span>
+                        <strong id="integrityVal">High</strong>
+                    </div>
+                    <div class="data-item">
+                        <span>TYPE</span>
+                        <strong id="typeVal">Human</strong>
+                    </div>
+                    <div class="data-item">
+                        <span>NOISE FLOOR</span>
+                        <strong>-48dB</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="js.js"></script>
+</body>
+</html>
